@@ -1,4 +1,4 @@
-# task_timer
+# Task timer
 
 Simple way to time tasks with built-in stopwatch like functionality.
 Allows user and task to be specified from a dropdown and optional notes and ID for each task.
