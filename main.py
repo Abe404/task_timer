@@ -147,9 +147,11 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.user_name_combo = QtWidgets.QComboBox(self)
         self.user_name_combo.setGeometry(10, y, 200, 60)
-        for user_name in self.user_names:
+        for i, user_name in enumerate(self.user_names):
             self.user_name_combo.addItem(user_name)
-
+            if user_name == self.default_user_name:
+                self.user_name_combo.setCurrentIndex(i)
+            
     def add_id_input(self, y):
         self.id_label = QtWidgets.QLabel(self)
         self.id_label.setFont(QtGui.QFont('Arial', 12))
@@ -198,6 +200,7 @@ class MainWindow(QtWidgets.QMainWindow):
         settings = toml.loads(open(settings_path).read())
         self.user_names = settings['user_names']
         self.task_names = settings['task_names']
+        self.default_user_name = settings['default_user_name']
         self.csv_path = settings['csv_path']
         self.timer_state = TimerState.IDLE
         self.duration_seconds = 0
