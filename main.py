@@ -128,29 +128,31 @@ class MainWindow(QtWidgets.QMainWindow):
         self.display_timer.start(50) # updates 20 times a second
         self.display_timer.timeout.connect(self.update_duration)
 
-    def add_task_name_combo(self, y):
+    def add_task_name_combo(self):
         label = QtWidgets.QLabel(self)
         label.setFont(QtGui.QFont('Arial', 12))
-        label.setGeometry(15, y, 200, 15 )
         label.setText('Task')
+        self.layout.addWidget(label)
 
         self.task_name_combo = QtWidgets.QComboBox(self)
-        self.task_name_combo.setGeometry(10, y+15, 200, 30)
         for task_name in self.task_names:
             self.task_name_combo.addItem(task_name)
+        self.layout.addWidget(self.task_name_combo)
 
-    def add_user_name_combo(self, y):
+    def add_user_name_combo(self):
         label = QtWidgets.QLabel(self)
         label.setFont(QtGui.QFont('Arial', 12))
-        label.setGeometry(15, y, 200, 15 )
+        #label.setGeometry(15, y, 200, 5)
         label.setText('User')
+        self.layout.addWidget(label)
 
-        self.user_name_combo = QtWidgets.QComboBox(self)
-        self.user_name_combo.setGeometry(10, y+15, 200, 30)
+        self.user_name_combo = QtWidgets.QComboBox()
+        #self.user_name_combo.setGeometry(10, y+20, 200, 20)
         for i, user_name in enumerate(self.user_names):
             self.user_name_combo.addItem(user_name)
             if user_name == self.default_user_name:
                 self.user_name_combo.setCurrentIndex(i)
+        self.layout.addWidget(self.user_name_combo)
             
     def add_id_input(self, y):
         self.id_label = QtWidgets.QLabel(self)
@@ -175,19 +177,25 @@ class MainWindow(QtWidgets.QMainWindow):
         self.notes_textbox.hide()
 
     def create_ui(self):
-       self.setWindowTitle("Task timer")
-       self.setGeometry(50, 50, 220, 490)
-       self.add_user_name_combo(y=10)
-       self.add_task_name_combo(y=60)
-       self.add_start_button(y=115)
-       self.add_stop_button(y=115)
-       self.create_time_label(y=170)
-       self.add_reset_button(y=225)
-       self.add_id_input(y=290)
-       self.add_notes_input(y=350)
-       self.add_save_button(y=415)
-       self.show_current_duration()
-       self.add_display_timer()
+        self.setWindowTitle("Task timer")
+        container = QtWidgets.QWidget()
+        container_layout = QtWidgets.QVBoxLayout()
+        #container_layout.setContentsMargins(0, 0, 0, 0)
+        container.setLayout(container_layout)
+        self.layout = container_layout
+        self.setCentralWidget(container)
+        #self.setGeometry(50, 50, 220, 490)
+        self.add_user_name_combo()
+        self.add_task_name_combo()
+        self.add_start_button()
+        #self.add_stop_button(y=115)
+        #self.create_time_label(y=170)
+        #self.add_reset_button(y=225)
+        #self.add_id_input(y=290)
+        #self.add_notes_input(y=350)
+        #self.add_save_button(y=415)
+        #self.show_current_duration()
+        #self.add_display_timer()
 
     def create_time_label(self, y):
        self.time_label = QtWidgets.QLabel(self)
