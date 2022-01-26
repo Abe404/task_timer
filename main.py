@@ -17,11 +17,12 @@ import datetime
 from enum import Enum
 import sys
 import time
+from pathlib import Path
 
 from PyQt5 import QtWidgets 
 from PyQt5 import QtCore
 from PyQt5 import QtGui
-
+import toml
 
 class TimerState(Enum):
     IDLE = 1
@@ -57,14 +58,14 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def save_timing(self):
         now_str = datetime.datetime.now().isoformat()
-        fname = 'spreadsheet.csv'
-        if os.path.exists(fname):
-            f = open('spreadsheet.csv', 'a')
+        if os.path.exists(self.csv_path):
+            f = open(self.csv_path, 'a')
         else:
-            f = open('spreadsheet.csv', 'w')
+            f = open(self.csv_path, 'w')
             print('duration_seconds,user_name,task_name,save_time,id,notes', file=f)
         print(f'{self.duration_seconds},{self.task_name_combo.currentText()},'
-              f'{now_str},self.id_textbox.text(),{self.notes_textbox.text()}', file=f)
+              f'{self.user_name_combo.currentText()},'
+              f'{now_str},{self.id_textbox.text()},{self.notes_textbox.text()}', file=f)
         self.reset()
 
     def reset(self):
@@ -135,9 +136,8 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.task_name_combo = QtWidgets.QComboBox(self)
         self.task_name_combo.setGeometry(10, y, 200, 60)
-        self.task_name_combo.addItem("Kindey")
-        self.task_name_combo.addItem("Bowel bag")
-        self.task_name_combo.addItem("Spinal cord")
+        for task_name in self.task_names:
+            self.task_name_combo.addItem(task_name)
 
     def add_user_name_combo(self, y):
         label = QtWidgets.QLabel(self)
@@ -147,9 +147,8 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.user_name_combo = QtWidgets.QComboBox(self)
         self.user_name_combo.setGeometry(10, y, 200, 60)
-        self.user_name_combo.addItem("User 1")
-        self.user_name_combo.addItem("User 2")
-        self.user_name_combo.addItem("User 3")
+        for user_name in self.user_names:
+            self.user_name_combo.addItem(user_name)
 
     def add_id_input(self, y):
         self.id_label = QtWidgets.QLabel(self)
@@ -195,7 +194,11 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def __init__(self):
         super().__init__()
-        self.user_names = 
+        settings_path = os.path.join(Path.home(), 'task_timer_settings.toml.txt')
+        settings = toml.loads(open(settings_path).read())
+        self.user_names = settings['user_names']
+        self.task_names = settings['task_names']
+        self.csv_path = settings['csv_path']
         self.timer_state = TimerState.IDLE
         self.duration_seconds = 0
         self.create_ui()
