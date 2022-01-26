@@ -39,6 +39,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.stop_button.show()
         self.stop_button.setEnabled(True)
         self.start_button.hide()
+        self.setFixedSize(self.layout.sizeHint())
 
     def stop_timer(self):
         self.timer_state = TimerState.STOPPED
@@ -51,6 +52,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.notes_label.show()
         self.id_textbox.show()
         self.id_label.show()
+        self.setFixedSize(self.layout.sizeHint())
 
 
     def clear_info_label(self):
@@ -76,34 +78,35 @@ class MainWindow(QtWidgets.QMainWindow):
         self.notes_textbox.setText('')
         self.notes_textbox.hide()
         self.notes_label.hide()
-
         self.id_textbox.setText('')
         self.id_textbox.hide()
         self.id_label.hide()
- 
- 
-    def add_start_button(self, y):
-        self.start_button = QtWidgets.QPushButton('start', self)
-        self.start_button.clicked.connect(self.start_timer)
-        self.start_button.setGeometry(10, y, 200, 60)
+        self.setFixedSize(self.layout.sizeHint())
 
-    def add_stop_button(self, y):
-        self.stop_button = QtWidgets.QPushButton('stop', self)
+ 
+ 
+    def add_start_button(self):
+        self.start_button = QtWidgets.QPushButton('start')
+        self.start_button.clicked.connect(self.start_timer)
+        self.layout.addWidget(self.start_button)
+
+    def add_stop_button(self):
+        self.stop_button = QtWidgets.QPushButton('stop')
         self.stop_button.clicked.connect(self.stop_timer)
-        self.stop_button.setGeometry(10, y, 200, 60)
+        self.layout.addWidget(self.stop_button)
         self.stop_button.hide()
         
-    def add_reset_button(self, y):
-        self.reset_button = QtWidgets.QPushButton('reset', self)
+    def add_reset_button(self):
+        self.reset_button = QtWidgets.QPushButton('reset')
         self.reset_button.clicked.connect(self.reset)
-        self.reset_button.setGeometry(10, y, 200, 60)
+        self.layout.addWidget(self.reset_button)
         self.duration_seconds = 0
         self.reset_button.hide()
 
-    def add_save_button(self, y):
-        self.save_button = QtWidgets.QPushButton('save', self)
+    def add_save_button(self):
+        self.save_button = QtWidgets.QPushButton('save')
         self.save_button.clicked.connect(self.save_timing)
-        self.save_button.setGeometry(10, y, 200, 60)
+        self.layout.addWidget(self.save_button)
         self.save_button.hide()
 
     def show_current_duration(self):
@@ -133,7 +136,6 @@ class MainWindow(QtWidgets.QMainWindow):
         label.setFont(QtGui.QFont('Arial', 12))
         label.setText('Task')
         self.layout.addWidget(label)
-
         self.task_name_combo = QtWidgets.QComboBox(self)
         for task_name in self.task_names:
             self.task_name_combo.addItem(task_name)
@@ -142,70 +144,68 @@ class MainWindow(QtWidgets.QMainWindow):
     def add_user_name_combo(self):
         label = QtWidgets.QLabel(self)
         label.setFont(QtGui.QFont('Arial', 12))
-        #label.setGeometry(15, y, 200, 5)
         label.setText('User')
         self.layout.addWidget(label)
-
         self.user_name_combo = QtWidgets.QComboBox()
-        #self.user_name_combo.setGeometry(10, y+20, 200, 20)
         for i, user_name in enumerate(self.user_names):
             self.user_name_combo.addItem(user_name)
             if user_name == self.default_user_name:
                 self.user_name_combo.setCurrentIndex(i)
         self.layout.addWidget(self.user_name_combo)
             
-    def add_id_input(self, y):
-        self.id_label = QtWidgets.QLabel(self)
+    def add_id_input(self):
+        self.id_label = QtWidgets.QLabel()
         self.id_label.setFont(QtGui.QFont('Arial', 12))
-        self.id_label.setGeometry(15, y, 200, 15 )
         self.id_label.setText('ID')
+        self.layout.addWidget(self.id_label)
         self.id_label.hide()
+        
         self.id_textbox = QtWidgets.QLineEdit(self)
-        self.id_textbox.move(15, y + 20)
-        self.id_textbox.resize(190, 30)
+        self.id_textbox.resize(190, 60)
+        self.layout.addWidget(self.id_textbox)
         self.id_textbox.hide()
 
-    def add_notes_input(self, y):
-        self.notes_label = QtWidgets.QLabel(self)
+    def add_notes_input(self):
+        self.notes_label = QtWidgets.QLabel()
         self.notes_label.setFont(QtGui.QFont('Arial', 12))
-        self.notes_label.setGeometry(15, y, 200, 15 )
         self.notes_label.setText('Notes')
+        self.layout.addWidget(self.notes_label)
         self.notes_label.hide()
         self.notes_textbox = QtWidgets.QLineEdit(self)
-        self.notes_textbox.move(15, y + 20)
         self.notes_textbox.resize(190, 30)
         self.notes_textbox.hide()
+        self.layout.addWidget(self.notes_textbox)
+        
 
     def create_ui(self):
         self.setWindowTitle("Task timer")
         container = QtWidgets.QWidget()
         container_layout = QtWidgets.QVBoxLayout()
-        #container_layout.setContentsMargins(0, 0, 0, 0)
         container.setLayout(container_layout)
         self.layout = container_layout
         self.setCentralWidget(container)
-        #self.setGeometry(50, 50, 220, 490)
         self.add_user_name_combo()
         self.add_task_name_combo()
         self.add_start_button()
-        #self.add_stop_button(y=115)
-        #self.create_time_label(y=170)
-        #self.add_reset_button(y=225)
-        #self.add_id_input(y=290)
-        #self.add_notes_input(y=350)
-        #self.add_save_button(y=415)
-        #self.show_current_duration()
-        #self.add_display_timer()
+        self.add_stop_button()
+        self.create_time_label()
+        self.add_reset_button()
+        self.add_id_input()
+        self.add_notes_input()
+        self.add_save_button()
+        self.show_current_duration()
+        self.add_display_timer()
+        self.setFixedSize(self.layout.sizeHint())
 
-    def create_time_label(self, y):
-       self.time_label = QtWidgets.QLabel(self)
-       self.time_label.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+    def create_time_label(self):
+       self.time_label = QtWidgets.QLabel()
        self.time_label.setAlignment(QtCore.Qt.AlignCenter)
        self.time_label.setFont(QtGui.QFont('Arial', 28))
-       self.time_label.setGeometry(10, y, 200, 60)
+       self.layout.addWidget(self.time_label)
 
     def __init__(self):
         super().__init__()
+
         settings_path = os.path.join(Path.home(), 'task_timer_settings.toml.txt')
         settings = toml.loads(open(settings_path).read())
         self.user_names = settings['user_names']
