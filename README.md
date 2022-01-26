@@ -36,3 +36,15 @@ default_user_name = "user 1"
 task_names = ["Kidney contour", "Bowel contour", "Spine contour", "another contour"]
 csv_path = "/Users/username/task_times.csv"
 ```
+
+
+#### Building the application.
+
+To create the application using PyInstaller [0], which bundles an application and it's dependencies into a single package.
+> python ./build/freeze.py
+
+To build the installer.
+> python ./build/installer.py
+
+
+[0] https://pyinstaller.readthedocs.io/en/stable/
