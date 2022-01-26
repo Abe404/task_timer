@@ -1,6 +1,6 @@
 {
     "verbose": true,
-    "app_name": "task_timer",
+    "app_name": "TaskTimer",
     "author": "Abraham George Smith",
     "main_module": "main.py",
     "version": "0.0.1",

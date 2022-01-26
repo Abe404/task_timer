@@ -51,12 +51,10 @@ This assumues you already have the required dependencies installed from the deve
 #### Building the application.
 
 To create the application using PyInstaller [0], which bundles an application and it's dependencies into a single package.
-> cd build
-> python freeze.py
+> python build/freeze.py
 
 To build the installer.
-> cd build
-> python nstaller.py
+> python build/installer.py
 
 
 [0] https://pyinstaller.readthedocs.io/en/stable/
