@@ -135,7 +135,7 @@ class MainWindow(QtWidgets.QMainWindow):
         label.setText('Task')
 
         self.task_name_combo = QtWidgets.QComboBox(self)
-        self.task_name_combo.setGeometry(10, y, 200, 60)
+        self.task_name_combo.setGeometry(10, y, 200, 30)
         for task_name in self.task_names:
             self.task_name_combo.addItem(task_name)
 
@@ -146,7 +146,7 @@ class MainWindow(QtWidgets.QMainWindow):
         label.setText('User')
 
         self.user_name_combo = QtWidgets.QComboBox(self)
-        self.user_name_combo.setGeometry(10, y, 200, 60)
+        self.user_name_combo.setGeometry(10, y, 200, 30)
         for i, user_name in enumerate(self.user_names):
             self.user_name_combo.addItem(user_name)
             if user_name == self.default_user_name:
@@ -176,7 +176,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def create_ui(self):
        self.setWindowTitle("Task timer")
-       self.setGeometry(10, 10, 220, 490)
+       self.setGeometry(50, 50, 220, 490)
        self.add_user_name_combo(y=10)
        self.add_task_name_combo(y=60)
        self.add_start_button(y=115)
@@ -191,8 +191,10 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def create_time_label(self, y):
        self.time_label = QtWidgets.QLabel(self)
-       self.time_label.setFont(QtGui.QFont('Arial', 36))
-       self.time_label.setGeometry(25, y, 200, 60)
+       self.time_label.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+       self.time_label.setAlignment(QtCore.Qt.AlignCenter)
+       self.time_label.setFont(QtGui.QFont('Arial', 28))
+       self.time_label.setGeometry(10, y, 200, 60)
 
     def __init__(self):
         super().__init__()
@@ -204,6 +206,12 @@ class MainWindow(QtWidgets.QMainWindow):
         self.csv_path = settings['csv_path']
         self.timer_state = TimerState.IDLE
         self.duration_seconds = 0
+        
+        self.setStyleSheet("""
+            QPushButton{font-size: 14pt;}
+            QComboBox{font-size: 11pt;}
+        """)
+
         self.create_ui()
 
 
