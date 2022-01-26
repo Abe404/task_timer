@@ -80,8 +80,9 @@ def freeze_windows(settings):
         extra_args += ["--icon", icon_file]
 
     run_pyinstaller(settings, extra_args)
-
-    shutil.copyfile(icon_file, os.path.join(freeze_dir, "Icon.ico"))
+    
+    if os.path.exists(icon_file):
+        shutil.copyfile(icon_file, os.path.join(freeze_dir, "Icon.ico"))
 
     for dll_name in CPP_DLL_LIST + UCRT_DLL_LIST:
         copy_dll(dll_name, freeze_dir)
