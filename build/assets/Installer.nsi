@@ -12,7 +12,7 @@
 ;
 ;This file is modified from the original in fman build system by Michael Herrmann
 ;The original was licensed under GPL License version 3 and this modified version is also
-;licensed under GPL version 3. The modifications were made by Rohan Orten in 2022
+;licensed under GPL version 3. The modifications were made by Rohan Orton in 2022
 ;"""
 
 !include MUI2.nsh
