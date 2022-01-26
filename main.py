@@ -135,7 +135,7 @@ class MainWindow(QtWidgets.QMainWindow):
         label.setText('Task')
 
         self.task_name_combo = QtWidgets.QComboBox(self)
-        self.task_name_combo.setGeometry(10, y, 200, 30)
+        self.task_name_combo.setGeometry(10, y+15, 200, 30)
         for task_name in self.task_names:
             self.task_name_combo.addItem(task_name)
 
@@ -146,7 +146,7 @@ class MainWindow(QtWidgets.QMainWindow):
         label.setText('User')
 
         self.user_name_combo = QtWidgets.QComboBox(self)
-        self.user_name_combo.setGeometry(10, y, 200, 30)
+        self.user_name_combo.setGeometry(10, y+15, 200, 30)
         for i, user_name in enumerate(self.user_names):
             self.user_name_combo.addItem(user_name)
             if user_name == self.default_user_name:
