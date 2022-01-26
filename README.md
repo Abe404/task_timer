@@ -1,5 +1,10 @@
 # task_timer
 
+Simple way to time tasks with built-in stopwatch like functionality.
+Allows user and task to be specified from a dropdown and optional notes and ID for each task.
+
+<img width="131" alt="task_timer_screen_shot" src="https://user-images.githubusercontent.com/376295/151143120-c2e19f54-fcae-49a5-aafd-78dc85a370ea.png">
+
 
 ## Development and Build process
 The application is developed and built with python 3.9
