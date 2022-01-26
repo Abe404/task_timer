@@ -14,7 +14,7 @@ See [releases](https://github.com/Abe404/task_timer/releases)
 ## Settings file
 
 The application will read the settings, including the task list, user names and csv output
-location from a settings file that it will load from a file named task_time_settings.toml.txt in the home folder.
+location from a settings file that it will load from a file named task_timer_settings.toml.txt in the home folder.
 This file must exist before the application is started.
 
 The following is some example contents of ~/task_timer_settings.toml.txt on OSX, where 
