@@ -30,7 +30,8 @@ location from a settings file that it will load from a file named task_time_sett
 This file must exist before the application is started.
 
 The following is some example contents of ~/task_timer_settings.toml.txt on OSX, where 
-username whould be replaced with the current user. ```
+username whould be replaced with the current user.
+```
 user_names = ["user 1", "user 2", "user 3", "user 4"]
 default_user_name = "user 1"
 task_names = ["Kidney contour", "Bowel contour", "Spine contour", "another contour"]
