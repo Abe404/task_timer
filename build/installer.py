@@ -58,7 +58,7 @@ def create_installer_windows(_):
     )
 
     shutil.copyfile(
-        os.path.join("src", "build", "assets", "Installer.nsi"),
+        os.path.join("build", "assets", "Installer.nsi"),
         os.path.join(installer_path, "Installer.nsi"),
     )
 
