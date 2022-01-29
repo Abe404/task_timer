@@ -64,10 +64,10 @@ class MainWindow(QtWidgets.QMainWindow):
             f = open(self.csv_path, 'a')
         else:
             f = open(self.csv_path, 'w')
-            print('duration_seconds,user_name,task_name,save_time,id,notes', file=f)
+            print('duration_seconds,task_name,user_name,save_time,id,notes', file=f)
         print(f'{self.duration_seconds},{self.task_name_combo.currentText()},'
-              f'{self.user_name_combo.currentText()},'
-              f'{now_str},{self.id_textbox.text()},{self.notes_textbox.text()}', file=f)
+              f'{self.user_name_combo.currentText()},{now_str},'
+              f'{self.id_textbox.text()},{self.notes_textbox.text()}', file=f)
         self.reset()
 
     def reset(self):
