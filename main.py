@@ -18,6 +18,7 @@ from enum import Enum
 import sys
 import time
 from pathlib import Path
+from turtle import color
 
 from PyQt5 import QtWidgets 
 from PyQt5 import QtCore
@@ -52,6 +53,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.notes_label.show()
         self.id_textbox.show()
         self.id_label.show()
+        self.validate()
         self.setFixedSize(self.layout.sizeHint())
 
 
@@ -81,10 +83,23 @@ class MainWindow(QtWidgets.QMainWindow):
         self.id_textbox.setText('')
         self.id_textbox.hide()
         self.id_label.hide()
+        self.info_label.setText("")
+        self.info_label.hide()
+        self.setFixedSize(self.layout.sizeHint())
+ 
+    def validate(self):
+        if not self.id_textbox.text():
+            self.save_button.hide()
+            self.info_label.setText("ID is required")
+            self.info_label.show()
+        elif self.timer_state == TimerState.STOPPED:
+            self.save_button.show()
+            self.info_label.setText("")
+            self.info_label.hide()
+
         self.setFixedSize(self.layout.sizeHint())
 
- 
- 
+
     def add_start_button(self):
         self.start_button = QtWidgets.QPushButton('start')
         self.start_button.clicked.connect(self.start_timer)
@@ -162,6 +177,9 @@ class MainWindow(QtWidgets.QMainWindow):
         
         self.id_textbox = QtWidgets.QLineEdit(self)
         self.id_textbox.resize(190, 60)
+
+        self.id_textbox.textChanged.connect(self.validate)
+
         self.layout.addWidget(self.id_textbox)
         self.id_textbox.hide()
 
@@ -176,6 +194,13 @@ class MainWindow(QtWidgets.QMainWindow):
         self.notes_textbox.hide()
         self.layout.addWidget(self.notes_textbox)
         
+    def add_info_label(self):
+        """ info label is used for displaying message when the ID has not been specified """
+        self.info_label = QtWidgets.QLabel()
+        self.info_label.setFont(QtGui.QFont('Arial', 12))
+        self.info_label.setStyleSheet("color: rgb(255, 0, 0);")
+        self.info_label.setText('')
+        self.layout.addWidget(self.info_label)
 
     def create_ui(self):
         self.setWindowTitle("Task timer")
@@ -195,6 +220,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.add_save_button()
         self.show_current_duration()
         self.add_display_timer()
+        self.add_info_label()
         self.setFixedSize(self.layout.sizeHint())
 
     def create_time_label(self):
